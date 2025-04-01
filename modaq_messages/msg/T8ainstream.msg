@@ -7,4 +7,5 @@ float64[] ain4
 float64[] ain5
 float64[] ain6
 float64[] ain7
-float64[] core_timer
+uint64[] core_timer
+uint64[] system_time
