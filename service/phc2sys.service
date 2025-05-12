@@ -7,7 +7,8 @@ Before=time-sync.target
 
 [Service]
 Type=simple
-ExecStart=/usr/sbin/phc2sys -w -s enp2s0 -u 5
+ExecStartPre=/bin/sleep 60
+ExecStart=/usr/sbin/phc2sys -w -s enp6s0 -u 5
 
 [Install]
 WantedBy=multi-user.target
