@@ -42,26 +42,26 @@ public:
     grp1 = this->get_parameter("emailGroup1").as_string_array();
     grp2 = this->get_parameter("emailGroup2").as_string_array();
 
-    auto parameters_client = std::make_shared<rclcpp::SyncParametersClient>(this, "BagRecorder");
-
-    if (!parameters_client->wait_for_service(2s)) {
-      RCLCPP_ERROR(this->get_logger(), "BagRecorder service not available.");
-      return;
-    }
-
-    std::vector<rclcpp::Parameter> parameters;
-    try {
-      parameters = parameters_client->get_parameters({"loggedTopics", "dataFolder"});
-    } catch (const std::exception &e) {
-      RCLCPP_ERROR(this->get_logger(), "Error getting parameters: %s", e.what());
-      return;
-    }
-
-    loggedTopics = parameters[0].as_string_array();
-    folderPath = parameters[1].as_string();
-
-    RCLCPP_INFO(this->get_logger(), "loggedTopic[0]: %s", loggedTopics[0].c_str());
-    RCLCPP_INFO(this->get_logger(), "emailGroup2: %s", grp2[0].c_str());
+    //auto parameters_client = std::make_shared<rclcpp::SyncParametersClient>(this, "BagRecorder");
+//
+    //if (!parameters_client->wait_for_service(2s)) {
+    //  RCLCPP_ERROR(this->get_logger(), "BagRecorder service not available.");
+    //  return;
+    //}
+//
+    //std::vector<rclcpp::Parameter> parameters;
+    //try {
+    //  parameters = parameters_client->get_parameters({"loggedTopics", "dataFolder"});
+    //} catch (const std::exception &e) {
+    //  RCLCPP_ERROR(this->get_logger(), "Error getting parameters: %s", e.what());
+    //  return;
+    //}
+//
+    //loggedTopics = parameters[0].as_string_array();
+    //folderPath = parameters[1].as_string();
+//
+    //RCLCPP_INFO(this->get_logger(), "loggedTopic[0]: %s", loggedTopics[0].c_str());
+    //RCLCPP_INFO(this->get_logger(), "emailGroup2: %s", grp2[0].c_str());
 
     logr.setBasePathandSize(loggerPath, loggerLimitBytes);
     emlr.setCredentials("smtp.gmail.com:587", emailSendAddr, emailSendPwd);
@@ -164,35 +164,35 @@ private:
     return snzr.snoozeInput(msgSnz.message_tag, msgSnz.snooze_time);
   }
 
-  void bag_analyzer_callback()
-  {
-    RCLCPP_INFO(this->get_logger(), "Processing checking bag");
-    startTime();
-    auto newestMcapFile = bagAnalyzer.findNewestMcapFile(folderPath);
-    if (!newestMcapFile)
-    {
-      std::cout << "No .mcap files found." << std::endl;
-      return;
-    }
-    std::cout << "Folder Search: ";
-    stopTime();
-    for (const auto &topicNameToFind : loggedTopics)
-    {
-      startTime();
-
-      try
-      {
-        auto [topicName, messageCount] = bagAnalyzer.analyzeBag(newestMcapFile->string(), topicNameToFind);
-        std::cout << "Found topic: " << topicName << ", message count: " << messageCount << std::endl;
-      }
-      catch (const std::exception &e)
-      {
-        std::cerr << "Error analyzing topic: " << topicNameToFind << ", error: " << e.what() << std::endl;
-      }
-      std::cout << "Topic Search: " << topicNameToFind << "  ";
-      stopTime();
-    }
-  }
+  //void bag_analyzer_callback()
+  //{
+  //  RCLCPP_INFO(this->get_logger(), "Processing checking bag");
+  //  startTime();
+  //  auto newestMcapFile = bagAnalyzer.findNewestMcapFile(folderPath);
+  //  if (!newestMcapFile)
+  //  {
+  //    std::cout << "No .mcap files found." << std::endl;
+  //    return;
+  //  }
+  //  std::cout << "Folder Search: ";
+  //  stopTime();
+  //  for (const auto &topicNameToFind : loggedTopics)
+  //  {
+  //    startTime();
+//
+  //    try
+  //    {
+  //      auto [topicName, messageCount] = bagAnalyzer.analyzeBag(newestMcapFile->string(), topicNameToFind);
+  //      std::cout << "Found topic: " << topicName << ", message count: " << messageCount << std::endl;
+  //    }
+  //    catch (const std::exception &e)
+  //    {
+  //      std::cerr << "Error analyzing topic: " << topicNameToFind << ", error: " << e.what() << std::endl;
+  //    }
+  //    std::cout << "Topic Search: " << topicNameToFind << "  ";
+  //    stopTime();
+  //  }
+  //}
 
   void startTime()
   {

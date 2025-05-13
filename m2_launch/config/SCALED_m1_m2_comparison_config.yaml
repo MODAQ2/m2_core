@@ -1,65 +1,65 @@
 Labjack1: #low speed signals
   ros__parameters:
     IPAddress: "192.168.1.21"
-    SampleRate: 40000.0 #Must include a decimal
-    ScansPerRead: 4000
+    SampleRate: 200.0 #Must include a decimal
+    ScansPerRead: 20
     ainTopic: "/ain_1_fast"
     channelNames:
-      - AIN0
-      - AIN1
-      - AIN2
-      - AIN3
-      - AIN4
+      - V-WNDSPD-1
+      - PT-DC-1
+      - CT-DC-1
+      - PW-ACT-1
+      - PW-PF-1
       - AIN5
       - AIN6
       - AIN7
     channelScales: #Units = A*(Voltage)+B || Must include decimal 
-      - 1.0            #AIN0
-      - 1.0          #AIN1
-      - 1.0    #AIN2
-      - 1.0        #AIN3
-      - 1.0             #AIN4
+      - 9.262            #AIN0
+      - 200.13        #AIN1
+      - 12.53  #AIN2
+      - 6.046        #AIN3
+      - -0.211             #AIN4
       - 1.0             #AIN5
       - 1.0             #AIN6
       - 1.0            #AIN7 
     channelOffsets: #Units = A*(Voltage)+B || Must include decimal 
-      - 0.0              #AIN0
-      - 0.0              #AIN1
-      - 0.0         #AIN2
+      - 0.193              #AIN0
+      - -1199.84              #AIN1
+      - -75.15         #AIN2
       - 0.0          #AIN3
-      - 0.0               #AIN4
+      - -2.39               #AIN4
       - 0.0               #AIN5
       - 0.0               #AIN6
       - 0.0               #AIN7
     channelUnits:
-      - V    #AIN0
+      - m/s    #AIN0
       - V   #AIN1
-      - V    #AIN2
-      - V    #AIN3
-      - V   #AIN4
+      - A    #AIN2
+      - kW    #AIN3
+      - NA   #AIN4
       - V  #AIN5
       - V  #AIN6
       - V       #AIN7            
 Labjack2: #high speed signals
   ros__parameters:
     IPAddress: "192.168.1.22"
-    SampleRate: 40000.0 #Must include a decimal
-    ScansPerRead: 4000
+    SampleRate: 25000.0 #Must include a decimal
+    ScansPerRead: 1000
     ainTopic: "/ain_2_fast"
     channelNames:
-      - AIN0
-      - AIN1
-      - AIN2
-      - AIN3
+      - PT-AC-1
+      - PT-AC-2
+      - CT-AC-1
+      - CT-AC-2
       - AIN4
       - AIN5
       - AIN6
       - AIN7
     channelScales: #Units = A*(Voltage)+B || Must include decimal 
-      - 1.0            #AIN0
-      - 1.0          #AIN1
-      - 1.0    #AIN2
-      - 1.0        #AIN3
+      - 30.0           #AIN0
+      - 30.0         #AIN1
+      - 50.0   #AIN2
+      - 50.0       #AIN3
       - 1.0             #AIN4
       - 1.0             #AIN5
       - 1.0             #AIN6
@@ -76,12 +76,12 @@ Labjack2: #high speed signals
     channelUnits:
       - V    #AIN0
       - V   #AIN1
-      - V    #AIN2
-      - V    #AIN3
-      - V   #AIN4
-      - V  #AIN5
-      - V  #AIN6
-      - V       #AIN7            
+      - A    #AIN2
+      - A    #AIN3
+      - NC   #AIN4
+      - NC  #AIN5
+      - NC  #AIN6
+      - NC       #AIN7            
 BagRecorder:
   ros__parameters:
     dataFolder: "/media/m2/KINGSTON"
@@ -94,7 +94,7 @@ AwsS3:
     filePrefix: "/m2_bag/"
 M2Supervisor:
   ros__parameters:
-    loggerPath: "/media/m2/KINGSTON/Logs"
+    loggerPath: "/home/m2/Log"
     loggerLimitBytes: 1000000
     emailSendAddr: "youremailwithsmtpenabled@email.com"
     emailSendPwd: "passwordhere"
