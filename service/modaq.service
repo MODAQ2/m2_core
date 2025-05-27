@@ -10,9 +10,11 @@ WantedBy=multi-user.target
 
 [Service]
 Type=simple
-Environment="HOME=root"
-ExecStartPre=/bin/sleep 2
-ExecStart=/bin/bash -c "source /opt/ros/humble/setup.bash; source /home/m2/MODAQ2/install/setup.bash; ros2 launch m2_launch m2_launch.py"
+Environment="HOME=/home/m2"
+Environment= "ROS_DOMAIN_ID=9"
+WorkingDirectory=/home/m2/m1-m2-comparison/m2_ws
+ExecStartPre=/bin/sleep 60
+ExecStart=/bin/bash -c "source /opt/ros/humble/setup.bash; source /home/m2/m1-m2-comparison/m2_ws/install/setup.bash; ros2 launch m2_launch m2_launch.py"
 
 
-# sudo cp /home/m2/MODAQ2/service/modaq.service /etc/systemd/system/modaq.service
+# sudo cp /home/m2/m1-m2-comparison/m2_ws/src/m2_core/service/modaq.service /etc/systemd/system/modaq.service

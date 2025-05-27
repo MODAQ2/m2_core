@@ -24,7 +24,6 @@ logPath = cfg["M2Supervisor"]["ros__parameters"]["loggerPath"]
 systemStartTime = datetime.utcnow().strftime("%Y_%m_%d_%H_%M_%S")
 shutil.copy(config, os.path.join(logPath, f"{systemStartTime}_{configName}"))
 
-print("ROS_DOMAIN_ID: ", os.environ['ROS_DOMAIN_ID'])
 def generate_launch_description():
     m2_supervisor_node = Node(
         package="m2_supervisor",
@@ -58,7 +57,23 @@ def generate_launch_description():
             parameters=[config],
             output="both",
             respawn=True
+        ),
+        Node(
+            package="time_sync_status",
+            executable="time_sync_status_node",
+            name="TimeSyncStatus",
+            parameters=[config],
+            output="both",
+            respawn=True
+        ),
+        Node(
+            package="foxglove_bridge",
+            executable="foxglove_bridge",
+            parameters=[config],
+            output="both",
+            respawn=True
         )
+        
     ]
 
     # Timer delay (e.g., 5 seconds) after M2Supervisor starts
@@ -68,8 +83,6 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        SetEnvironmentVariable(name='ROS_DOMAIN_ID', value='9'),
-
         m2_supervisor_node,
 
         RegisterEventHandler(
