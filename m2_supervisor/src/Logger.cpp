@@ -29,7 +29,7 @@ std::string Logger::generateFilename() {
     std::time_t now = std::time(nullptr);
     std::tm* localTime = std::localtime(&now);
     char buffer[80];
-    std::strftime(buffer, sizeof(buffer), "%Y-%m-%d_%H-%M-%S", localTime);
+    std::strftime(buffer, sizeof(buffer), "%Y_%m_%d_%H_%M_%S", localTime);
     std::cout << "starting new log file: " << std::string(buffer) + "_log.txt" << std::endl;
 
     return std::string(buffer) + "_log.txt";

@@ -94,7 +94,7 @@ AwsS3:
     filePrefix: "/m2_bag/"
 M2Supervisor:
   ros__parameters:
-    loggerPath: "/home/m2/Log"
+    loggerPath: "/media/m2/KINGSTON/Log"
     loggerLimitBytes: 1000000
     emailSendAddr: "youremailwithsmtpenabled@email.com"
     emailSendPwd: "passwordhere"
