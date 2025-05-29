@@ -9,6 +9,7 @@
  * 
  *
 */
+//  ros2 run m2_supervisor m2_supervisor_node --ros-args --params-file /home/m2/m1-m2-comparison/m2_ws/src/m2_core/m2_launch/config/m1_m2_comparison_config.yaml
 #include "rclcpp/rclcpp.hpp"
 #include <iostream>
 #include "modaq_messages/msg/systemmsg.hpp"
@@ -17,6 +18,7 @@
 #include "Snoozer.h"
 #include <memory>
 #include "BagAnalyzer.h"
+#include "SystemStats.h"
 
 using std::placeholders::_1;
 using namespace std::chrono_literals;
@@ -25,7 +27,7 @@ class M2Supervisor : public rclcpp::Node
 {
 public:
   M2Supervisor()
-      : Node("M2Supervisor"), emlr(), logr(), snzr(), bagAnalyzer()
+      : Node("M2Supervisor"), emlr(), logr(), snzr(), bagAnalyzer(), sysStats()
   {
     // Declare and get parameters
     this->declare_parameter<std::string>("loggerPath", "");
@@ -61,7 +63,6 @@ public:
     //folderPath = parameters[1].as_string();
 //
     //RCLCPP_INFO(this->get_logger(), "loggedTopic[0]: %s", loggedTopics[0].c_str());
-    //RCLCPP_INFO(this->get_logger(), "emailGroup2: %s", grp2[0].c_str());
 
     logr.setBasePathandSize(loggerPath, loggerLimitBytes);
     emlr.setCredentials("smtp.gmail.com:587", emailSendAddr, emailSendPwd);
@@ -71,6 +72,15 @@ public:
 
     sysmsg_sub = this->create_subscription<modaq_messages::msg::Systemmsg>("/system_messenger", 10, std::bind(&M2Supervisor::messenger_callback, this, _1));
     //timer_bag_analyze = this->create_wall_timer(10000ms, std::bind(&M2Supervisor::bag_analyzer_callback, this));
+
+    timer_stats = this->create_wall_timer(10000ms,std::bind(&M2Supervisor::systemStatsCallback, this));
+
+    sysStats.setStats( true, true, true, true, "/media/m2/KINGSTON/");
+    logr.log(sysStats.getHeader());
+    logr.log(sysStats.getStats());
+
+    std::cout << sysStats.getHeader() << std::endl;
+    std::cout << sysStats.getStats() << std::endl; 
 
     publisher_sysmsg = this->create_publisher<modaq_messages::msg::Systemmsg>("/system_messenger", 10);
     modaq_messages::msg::Systemmsg initmsg;
@@ -85,11 +95,13 @@ private:
   rclcpp::Subscription<modaq_messages::msg::Systemmsg>::SharedPtr sysmsg_sub;
   rclcpp::Publisher<modaq_messages::msg::Systemmsg>::SharedPtr publisher_sysmsg;
   rclcpp::TimerBase::SharedPtr timer_bag_analyze;
+  rclcpp::TimerBase::SharedPtr timer_stats;
 
   EmailSender emlr;
   Logger logr;
   Snoozer snzr;
   BagAnalyzer bagAnalyzer;
+  SystemStats sysStats;
   std::ostringstream loggerString;
   std::vector<std::string> grp1and2;
   std::vector<std::string> grp1;
@@ -134,7 +146,7 @@ private:
     std::time_t now = std::time(nullptr);
     std::tm *localTime = std::localtime(&now);
     char buffer[80];
-    std::strftime(buffer, sizeof(buffer), "%Y-%m-%d_%H-%M-%S", localTime);
+    std::strftime(buffer, sizeof(buffer), "%Y_%m_%d_%H_%M_%S", localTime);
     loggerString << std::string(buffer) << " , "
                  << msgnr.header.stamp.sec << " , "
                  << msgnr.message_tag << " , "
@@ -204,6 +216,11 @@ private:
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
     std::cout << "Time elapsed: " << duration.count() << " milliseconds" << std::endl;
+  }
+
+  void systemStatsCallback()
+  {
+    logr.log(sysStats.getStats());
   }
 };
 

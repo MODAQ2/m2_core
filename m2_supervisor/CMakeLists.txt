@@ -17,7 +17,7 @@ find_package(rosbag2_cpp REQUIRED)
 
 
 include_directories(include ${CMAKE_CURRENT_SOURCE_DIR}/include/m2_supervisor)
-add_executable(m2_supervisor_node src/m2_supervisor_node.cpp src/EmailSender.cpp src/Logger.cpp src/Snoozer.cpp src/BagAnalyzer.cpp)
+add_executable(m2_supervisor_node src/m2_supervisor_node.cpp src/EmailSender.cpp src/Logger.cpp src/Snoozer.cpp src/BagAnalyzer.cpp src/SystemStats.cpp)
 ament_target_dependencies(m2_supervisor_node rclcpp std_msgs modaq_messages rosbag2_cpp)
 
 ##add_executable(bagAnalyzer src/BagAnalyzer.cpp)
