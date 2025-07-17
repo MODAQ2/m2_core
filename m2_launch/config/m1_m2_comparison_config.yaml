@@ -108,7 +108,7 @@ M2Supervisor:
     topicErrorEmailSnooze: 60
 TimeSyncStatus:
   ros__parameters:
-    statusPeriodMS: 30000
+    statusPeriodMS: 300000
     timeMachineIP: "192.168.1.20"
     enableTimeStatusLog: true
     enableTimeStatusTopic: true

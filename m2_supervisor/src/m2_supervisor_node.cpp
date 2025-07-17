@@ -73,7 +73,7 @@ public:
     sysmsg_sub = this->create_subscription<modaq_messages::msg::Systemmsg>("/system_messenger", 10, std::bind(&M2Supervisor::messenger_callback, this, _1));
     //timer_bag_analyze = this->create_wall_timer(10000ms, std::bind(&M2Supervisor::bag_analyzer_callback, this));
 
-    timer_stats = this->create_wall_timer(10000ms,std::bind(&M2Supervisor::systemStatsCallback, this));
+    timer_stats = this->create_wall_timer(300000ms,std::bind(&M2Supervisor::systemStatsCallback, this));
 
     sysStats.setStats( true, true, true, true, "/media/m2/KINGSTON/");
     logr.log(sysStats.getHeader());

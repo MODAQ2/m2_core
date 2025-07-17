@@ -72,7 +72,15 @@ def generate_launch_description():
             parameters=[config],
             output="both",
             respawn=True
-        )
+        ),
+        Node(
+            package="bergey_monitor",
+            executable="bergey_monitor_node",
+            name="BergeyMonitor",
+            parameters=[config],
+            output="both",
+            respawn=True
+        ),
         
     ]
 
