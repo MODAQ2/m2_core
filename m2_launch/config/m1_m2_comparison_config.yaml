@@ -9,7 +9,7 @@ Labjack1: #low speed signals
       - PT-DC-1
       - CT-DC-1
       - PW-ACT-1
-      - PW-PF-1
+      - PW-REACT-1
       - AIN5
       - AIN6
       - AIN7
