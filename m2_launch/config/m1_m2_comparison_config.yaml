@@ -26,8 +26,8 @@ Labjack1: #low speed signals
       - 0.193              #AIN0
       - -1199.84              #AIN1
       - -75.15         #AIN2
-      - 0.0          #AIN3
-      - -2.39               #AIN4
+      - -36.253          #AIN3
+      - 2.39               #AIN4
       - 0.0               #AIN5
       - 0.0               #AIN6
       - 0.0               #AIN7
