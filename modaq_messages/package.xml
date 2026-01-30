@@ -4,7 +4,7 @@
   <name>modaq_messages</name>
   <version>0.0.0</version>
   <description>Custom msg types for MODAQ 2.0</description>
-  <maintainer email="robert.raye@nrel.gov">m2</maintainer>
+  <maintainer email="robert.raye@nlr.gov">m2</maintainer>
   <license>BSD 3-Clause License</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>

@@ -1,6 +1,6 @@
 /**
  * @file m2_supervisor.cpp
- * @author Casey Nichols (casey.nichols@nrel.gov)
+ * @author Casey Nichols (casey.nichols@nlr.gov)
  * @brief ros node supervising the MODAQ system
  * @version 0.1
  * @date 2024-10-02

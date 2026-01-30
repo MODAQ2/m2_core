@@ -4,7 +4,7 @@
   <name>m2_launch</name>
   <version>0.0.1</version>
   <description>Launch configuration and processes for MODAQ 2.0</description>
-  <maintainer email="casey.nichols@nrel.gov">m2</maintainer>
+  <maintainer email="casey.nichols@nlr.gov">m2</maintainer>
   <license>BSD 3-Clause License</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
