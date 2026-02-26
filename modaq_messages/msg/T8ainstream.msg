@@ -9,3 +9,5 @@ float64[] ain6
 float64[] ain7
 uint64[] core_timer
 uint64[] system_time
+uint64[] recv_time_calc
+uint64   ns_recv_time
