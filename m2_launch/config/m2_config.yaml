@@ -34,7 +34,7 @@ BagRecorder:
 M2Supervisor:
   ros__parameters:
     loggerPath: "/home/m2/Log"
-    loggerLimitBytes: 1000000
+    loggerLimitBytes: 100000
     emailSendAddr: "youremailwithsmtpenabled@email.com"
     emailSendPwd: "passwordhere"
     emailGroup1:
