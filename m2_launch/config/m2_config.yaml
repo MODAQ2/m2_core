@@ -1,4 +1,3 @@
-#test
 LabjackAINFast:
   ros__parameters:
     IPAddress: "10.10.59.112"
