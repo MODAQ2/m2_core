@@ -1,0 +1,42 @@
+name: Ubuntu 24.04 x64
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: src/m2_core
+
+      - name: Setup ROS 2 Jazzy
+        uses: ros-tooling/setup-ros@v0.7
+        with:
+          required-ros-distributions: jazzy
+
+      - name: Install ros2bag
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ros-jazzy-ros2bag ros-jazzy-rosbag2-storage-default-plugins
+
+      - name: Build
+        run: |
+          source /opt/ros/jazzy/setup.bash
+          colcon build
+        shell: bash
+        
+      - name: Confirm Build
+        run: | 
+          ls -a
+          tree
+        shell : bash

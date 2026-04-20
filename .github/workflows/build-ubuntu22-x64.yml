@@ -1,0 +1,43 @@
+name: Ubuntu 22.04 x64
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: src/m2_core
+
+      - name: Setup ROS 2 Humble
+        uses: ros-tooling/setup-ros@v0.7
+        with:
+          required-ros-distributions: humble
+
+      - name: Install ros2bag
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ros-humble-ros2bag ros-humble-rosbag2-storage-default-plugins
+
+
+      - name: Build
+        run: |
+          source /opt/ros/humble/setup.bash
+          colcon build
+        shell: bash
+        
+      - name: Confirm Build
+        run: | 
+          ls -a
+          tree
+        shell : bash
