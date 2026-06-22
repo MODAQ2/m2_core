@@ -81,6 +81,22 @@ def generate_launch_description():
             output="both",
             respawn=True
         ),
+        Node(
+        package    = "labjack_t8_ros2",
+        executable = "time_synchronziation_node",
+        name = "LJTime1",
+        output="screen",
+        respawn = True,
+        parameters = [config]
+        ),
+        Node(
+        package    = "labjack_t8_ros2",
+        executable = "time_synchronziation_node",
+        name = "LJTime2",
+        output="screen",
+        respawn = True,
+        parameters = [config]
+        )
         
     ]
 

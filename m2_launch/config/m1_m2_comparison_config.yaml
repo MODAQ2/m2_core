@@ -115,4 +115,13 @@ TimeSyncStatus:
 foxglove_bridge:
   ros__parameters:
     port: 9090
-
+LJTime1:
+  ros__parameters:
+    IPAddress: "192.168.1.21"
+    sampleRateMS: 1000
+    tsTopic: /ljtime_1
+LJTime2:
+  ros__parameters:
+    IPAddress: "192.168.1.22"
+    sampleRateMS: 1000
+    tsTopic: /ljtime_2
