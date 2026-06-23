@@ -1,20 +1,57 @@
-#This file allows for the MODAQ 2.0 process to be started on system boot.
-#to use it, copy this file to /etc/systemd/system/modaq.service
-#you can then use "sudo systemctl enable modaq.service" to have the m2_launch.py start on boot
-
 [Unit]
-Description=ROS2 MODAQ2 launcher on system startup
+Description=ROS2 CM5 Comparison launcher
+After=network-online.target phc2sys.service
+Wants=network-online.target
+Requires=phc2sys.service
 
-[Install]
-WantedBy=multi-user.target
+# Disable start-rate limiting (important for field recovery)
+StartLimitIntervalSec=0
 
 [Service]
 Type=simple
-Environment="HOME=/home/m2"
-Environment= "ROS_DOMAIN_ID=9"
+
+############################
+# Real-time & performance
+############################
+LimitRTPRIO=infinity
+LimitMEMLOCK=infinity
+OOMScoreAdjust=-900
+
+############################
+# Environment (NO login shell)
+############################
+Environment=HOME=/home/m2
+Environment=USER=m2
+Environment=PYTHONUNBUFFERED=1
+Environment=ROS_DOMAIN_ID=9
+
+
+
+############################
+# Execution
+############################
 WorkingDirectory=/home/m2/m1-m2-comparison/m2_ws
-ExecStartPre=/bin/sleep 60
-ExecStart=/bin/bash -c "source /opt/ros/humble/setup.bash; source /home/m2/m1-m2-comparison/m2_ws/install/setup.bash; ros2 launch m2_launch m2_launch.py"
 
+# Give NIC, PTP, and clocks time to stabilize
+ExecStartPre=/bin/sleep 15
 
-# sudo cp /home/m2/m1-m2-comparison/m2_ws/src/m2_core/service/modaq.service /etc/systemd/system/modaq.service
+# Inline shell script:
+ExecStart=/bin/bash -c 'source /opt/ros/jazzy/setup.bash; source /home/m2/m1-m2-comparison/m2_ws/install/setup.bash; ros2 launch m2_launch m2_launch.py'
+
+############################
+# Restart & shutdown behavior
+############################
+Restart=always
+RestartSec=60
+TimeoutStopSec=30
+KillSignal=SIGINT
+WatchdogSec=0
+
+############################
+# Logging
+############################
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
