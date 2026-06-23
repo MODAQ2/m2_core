@@ -84,7 +84,7 @@ Labjack2: #high speed signals
       - NC       #AIN7            
 BagRecorder:
   ros__parameters:
-    dataFolder: "/media/m2/KINGSTON"
+    dataFolder: "/media/m2/NVME"
     fileDuration: 600 
     loggedTopics:
       - "*"
@@ -94,7 +94,7 @@ AwsS3:
     filePrefix: "/m2_bag/"
 M2Supervisor:
   ros__parameters:
-    loggerPath: "/media/m2/KINGSTON/Log"
+    loggerPath: "/media/m2/NVME/Log"
     loggerLimitBytes: 1000000
     emailSendAddr: "youremailwithsmtpenabled@email.com"
     emailSendPwd: "passwordhere"
@@ -102,9 +102,6 @@ M2Supervisor:
       - "youremail@email.com"      
     emailGroup2:
       - "youremail2@email.com"
-    analyzedTopics:
-      - /ain_flap
-      - /T8din
     topicErrorEmailSnooze: 60
 TimeSyncStatus:
   ros__parameters:
