@@ -46,14 +46,14 @@ def generate_launch_description():
     output="screen",
     respawn = True
     ),
-    # Node(
-    # package    = "labjack_t8_ros2",
-    # executable = "labjack_ain_streamer",
-    # name = "LabjackAINFast",
-    # parameters = [config],
-    # output="log",
-    # respawn = True
-    # ), 
+    Node(
+    package    = "labjack_t8_ros2",
+    executable = "labjack_ain_streamer",
+    name = "LabjackAINFast",
+    parameters = [config],
+    output="log",
+    respawn = True
+    ), 
     Node(
     package    = "labjack_t8_ros2",
     executable = "labjack_ain_reader",
@@ -102,7 +102,7 @@ def generate_launch_description():
     executable = 'adnav_driver',
     emulate_tty = True,
     output = 'log',
-    # arguments=['--ros-args', '--log-level', 'debug'],
+    arguments=['--ros-args', '--log-level', 'ERROR'],
     parameters = [config]
     ),
     Node(
@@ -121,14 +121,14 @@ def generate_launch_description():
     parameters=[config],
     arguments=[]
     ),
-    Node(
-    package='m2_control',
-    executable='m2_control',
-    name='M2Control',
-    output='screen',
-    parameters=[config],
-    arguments=[]
-    ),
+    # Node(
+    # package='m2_control',
+    # executable='m2_control',
+    # name='M2Control',
+    # output='screen',
+    # parameters=[config],
+    # arguments=[]
+    # ),
     # Node(
     # package='parquet_writer',
     # executable='parquet_write_consumer',
