@@ -1,8 +1,8 @@
 LabjackAINFast:
   ros__parameters:
     IPAddress: "10.10.59.99"
-    SampleRate: 10000.0 #Must include a decimal
-    ScansPerRead: 1000
+    SampleRate: 200.0 #Must include a decimal
+    ScansPerRead: 20
     ainTopic: "/ain_fast"
 LabjackAINSlow:
   ros__parameters:

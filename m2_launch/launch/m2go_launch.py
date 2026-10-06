@@ -35,7 +35,7 @@ def generate_launch_description():
     executable = "bag_recorder_node",
     ## Automatically gets named BagRecorded - do not add name= ""
     parameters = [config],
-    output="screen",
+    output="both",
     respawn = True
     ),
     Node(
@@ -43,7 +43,7 @@ def generate_launch_description():
     executable = "m2_supervisor_node",
     name = "M2Supervisor",
     parameters = [config],
-    output="screen",
+    output="both",
     respawn = True
     ),
     Node(
@@ -51,23 +51,23 @@ def generate_launch_description():
     executable = "labjack_ain_streamer",
     name = "LabjackAINFast",
     parameters = [config],
-    output="log",
+    output="both",
     respawn = True
     ), 
-    Node(
-    package    = "labjack_t8_ros2",
-    executable = "labjack_ain_reader",
-    name = "LabjackAINSlow",
-    parameters = [config],
-    output="log",
-    respawn = True
-    ),    
+    # Node(
+    # package    = "labjack_t8_ros2",
+    # executable = "labjack_ain_reader",
+    # name = "LabjackAINSlow",
+    # parameters = [config],
+    # output="both",
+    # respawn = True
+    # ),    
     Node(
     package    = "labjack_t8_ros2",
     executable = "labjack_do_node",
     name = "LabjackDO",
     parameters = [config],
-    output="screen",
+    output="both",
     respawn = True
     ),
     Node(
@@ -75,7 +75,7 @@ def generate_launch_description():
     executable = "labjack_dac_writer",
     name = "LabjackDAC",
     parameters = [config],
-    output="screen",
+    output="both",
     respawn = True
     ),   
     Node(
@@ -83,7 +83,7 @@ def generate_launch_description():
     executable = "labjack_dio_reader",
     name = "LabjackDIN",
     parameters = [config],
-    output="screen",
+    output="both",
     respawn = True
     ),
     # Node(
@@ -101,7 +101,7 @@ def generate_launch_description():
     package = 'adnav_driver',
     executable = 'adnav_driver',
     emulate_tty = True,
-    output = 'log',
+    output = 'both',
     arguments=['--ros-args', '--log-level', 'ERROR'],
     parameters = [config]
     ),
@@ -109,7 +109,7 @@ def generate_launch_description():
     package='bluespace_ai_xsens_mti_driver',
     executable='xsens_mti_node',
     name='XsensINS',
-    output='screen',
+    output='both',
     parameters=[config],
     arguments=[]
     ),
@@ -117,7 +117,7 @@ def generate_launch_description():
     package='ed582',
     executable='ed582_driver',
     name='RTDed582',
-    output='screen',
+    output='both',
     parameters=[config],
     arguments=[]
     ),
@@ -125,7 +125,7 @@ def generate_launch_description():
     # package='m2_control',
     # executable='m2_control',
     # name='M2Control',
-    # output='screen',
+    # output='both',
     # parameters=[config],
     # arguments=[]
     # ),
@@ -133,7 +133,7 @@ def generate_launch_description():
     # package='parquet_writer',
     # executable='parquet_write_consumer',
     # name='M2parquet',
-    # output='screen',
+    # output='both',
     # parameters=[config],
     # arguments=[]
     # )
